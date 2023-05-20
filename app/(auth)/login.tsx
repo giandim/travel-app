@@ -6,6 +6,7 @@ import * as yup from "yup";
 import Form, { IFormField } from "../../components/form";
 import Button from "../../components/ui/button";
 import Text from "../../components/ui/text";
+import { useAuth } from "../../context/auth";
 
 const schema = yup
   .object({
@@ -33,11 +34,13 @@ const formFields: IFormField[] = [
 export default function LoginScreen() {
   const router = useRouter();
   const [error, setError] = useState<string>();
+  const {signIn} = useAuth();
 
   const onSubmit = async (data: any) => {
     try {
       setError("");
-      await Auth.signIn(data.username, data.password)
+      const user = await Auth.signIn(data.username, data.password);
+      signIn(user)
     } catch (error) {
       setError("Wrong Username or Password")
     }

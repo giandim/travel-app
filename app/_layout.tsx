@@ -13,7 +13,7 @@ import { Hub } from "@aws-amplify/core";
 
 export { ErrorBoundary } from "expo-router";
 
-import { Provider } from "../context/auth";
+import { Provider, useAuth } from "../context/auth";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -21,7 +21,7 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
-  const { getItem, setItem } = useAsyncStorage("@auth");
+  const { user } = useAuth()
 
   const [loaded, error] = useFonts({
     Poppins_400Regular,
@@ -30,14 +30,15 @@ export default function RootLayout() {
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  // useEffect(() => {
+  useEffect(() => {
+    console.log(user)
   // const hubListener = Hub.listen('auth', (data) => {
   //   const { payload } = data;
   //   console.log('A new auth event has happened: ', data.payload.data.username + ' has ' + data.payload.event);
   // })
 
   // return () => hubListener();
-  // }, []);
+  }, []);
 
   return (
     <>
@@ -46,7 +47,7 @@ export default function RootLayout() {
       {/* {loaded && false ? <RootLayoutNav /> : <LoginScreen />} */}
       {loaded && (
         <Provider>
-          <Slot />
+          <RootLayoutNav />
         </Provider>
       )}
     </>

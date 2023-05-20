@@ -2,7 +2,7 @@ import { useRouter, useSegments } from "expo-router";
 import React from "react";
 
 interface IContext {
-  signIn: () => void;
+  signIn: (token: string) => void;
   signOut: () => void;
   user: any | null;
 }
@@ -32,6 +32,7 @@ function useProtectedRoute(user: unknown) {
       !inAuthGroup
     ) {
       // Redirect to the sign-in page.
+      // router.replace("/");
       router.replace("/(auth)/login");
     } else if (user && inAuthGroup) {
       // Redirect away from the sign-in page.
@@ -41,15 +42,15 @@ function useProtectedRoute(user: unknown) {
 }
 
 export function Provider(props: any) {
-  const [user, setAuth] = React.useState(null);
+  const [user, setAuth] = React.useState<string | undefined>(undefined);
 
   useProtectedRoute(user);
 
   return (
     <AuthContext.Provider
       value={{
-        signIn: () => setAuth(null),
-        signOut: () => setAuth(null),
+        signIn: (token: string) => setAuth(token),
+        signOut: () => setAuth(undefined),
         user,
       }}
     >

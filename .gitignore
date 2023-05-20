@@ -17,7 +17,7 @@ web-build/
 .metro-health-check*
 .example.firebaseConfig.js
 
-amplify 
+amplify
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
