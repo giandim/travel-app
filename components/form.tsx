@@ -17,7 +17,7 @@ interface IProps {
 }
 
 export default function Form(props: IProps) {
-  const {control, handleSubmit, formState: { errors }} = useForm({resolver: yupResolver(props.schema)});
+  const { control, handleSubmit, formState: { errors } } = useForm({resolver: yupResolver(props.schema)});
 
   const onSubmit = (data: any) => {
     return props.onSubmit(data);
@@ -47,7 +47,6 @@ export default function Form(props: IProps) {
       ))}
 
       <Button
-        // className="bg-lime-300 my-2 p-4 rounded-xl w-full self-end shadow-sm"
         onPress={handleSubmit(onSubmit)}
         text={props.buttonText || 'Submit'}
         type='primary'

@@ -1,13 +1,14 @@
 import { PropsWithChildren } from "react";
 import { Text as DefaultText, TextProps } from "react-native";
 
-type TextType = "header" | "label" | "default" | "button";
+type TextType = "header" | "label" | "default" | "button" | "error";
 
 const style = new Map<TextType, string>([
   ["header", "text-2xl text-blue-500 text-center"],
   ["label", "text-md text-red-500"],
   ["default", "text-sm"],
   ["button", "text-md"],
+  ["error", "text-red-500 text-center"]
 ]);
 
 interface IProps extends TextProps, PropsWithChildren {
